@@ -1,0 +1,28 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{ titulo }}</p>
+    <p>{{ saudacao() }}</p>
+
+    <!-- 
+        Binding de atributos: necessário o uso da diretiva "v-bind:" 
+
+        * diretivas são propriedades personalizadas interpretadas pelo Vue
+     -->
+    <a v-bind:href="link">Google</a>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            titulo: 'Usando VueJS!',
+            link: 'https://www.google.com.br'
+        },
+        methods: {
+            saudacao() {
+                return this.titulo
+            }
+        }
+    });
+</script>
