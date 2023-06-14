@@ -1,0 +1,44 @@
+<meta charset="utf-8">
+<script src="https://unpkg.com/vue@2"></script>
+
+<div id="app">
+    <component></component>
+    <component></component>
+    <component></component>
+    <component></component>
+</div>
+
+<script>
+    // A diferença entre a criação de componentes e da VueInstance:
+    // data deve ser uma função que retorna um objeto com dados, para que, em caso de repetição de componentes, não exista compartilhamento de referência do objeto entre as instaâncias
+
+    Vue.component('component', {
+        template: `
+            <div>
+                <h1>{{aula}}</h1>
+                <h2>{{modulo}}</h2>
+
+                <button @click="alterarAula">Alterar Aula</button>
+                <button @click="alterarModulo">Alterar Modulo</button>
+            </div>
+        `,
+        data: function (){ 
+            return {
+                aula: 'Aula: Montando Instância Vue',
+                modulo: 'Módulo: Instância Vue'
+            };
+        },
+        methods: {
+            alterarAula() {
+                this.aula += '#';
+            },
+            alterarModulo() {
+                this.modulo += '#';
+            }
+        }
+    })
+
+    const vm = new Vue({
+        el: '#app',
+    });
+</script>
