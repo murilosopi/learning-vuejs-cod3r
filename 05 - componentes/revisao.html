@@ -1,0 +1,33 @@
+<meta charset="utf-8">
+<script src="https://unpkg.com/vue@2"></script>
+
+<div id="app">
+    <Contador></Contador>
+    <CONTADOR></CONTADOR>
+    <contador></contador>
+    <contador></contador>
+</div>
+
+<script>
+    // Definição global de um componente:
+    // O template não pode conter mais do que um elemento em sua raiz
+    // O nome utilizado no html é case unsensitive
+    Vue.component('contador', {
+        template: `
+            <div>
+                <span>{{ contador }}</span>
+                <button @click="contador++">+</button>
+                <button @click="contador--">-</button>    
+            </div>
+        `,
+        data() {
+            return {
+                contador: 0
+            }
+        }
+    });
+
+    new Vue({
+        el: '#app',
+    });
+</script>
