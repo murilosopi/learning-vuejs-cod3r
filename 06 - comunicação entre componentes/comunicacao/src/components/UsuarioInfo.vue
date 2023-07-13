@@ -9,7 +9,15 @@
 <script>
 export default {
     // propriedades aceitas que podem vir de um outro componente
-    props: ['nomeUsuario'],
+    props: {
+        // nomeUsuario: [String, Array]
+        // nomeUsuario: String
+        nomeUsuario: {
+            type: String,
+            required: true,
+            // default: 'Anônimo'
+        }
+    },
     methods: {
         
     },
