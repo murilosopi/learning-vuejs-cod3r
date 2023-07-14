@@ -2,11 +2,12 @@
     <div class="container">
         <h1>Componente Usuário</h1>
         <p>Esse é um componente muito legal!</p>
+        <p>Nome é <strong>{{ nome }}</strong></p>
         <button @click="alterarNome">Alterar Nome</button>
         <hr>
         <div class="componentes">
             <!-- props passados por bind para um componente filho -->
-            <app-usuario-info :nomeUsuario="nome"/>
+            <app-usuario-info :nomeUsuario="nome" @nomeMudou="mudancaNomeEvent($event)" :callbackFn="modificarNome"/>
             <app-usuario-editar />
         </div>
     </div>
@@ -26,6 +27,14 @@ export default {
     methods: {
         alterarNome() {
             this.nome = 'Ana'
+        },
+
+        mudancaNomeEvent($event) {
+            console.log($event);
+        },
+
+        modificarNome() {
+            this.nome = 'Murilo Sopi';
         }
     }
 }
