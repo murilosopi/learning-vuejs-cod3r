@@ -3,12 +3,16 @@
         <h2>As Informações de Usuário</h2>
         <p>Vários detalhes...</p>
         <p>Nome do Usuário: <strong>{{ inverterNome }}</strong></p>
+        <p><strong>Idade:</strong> {{ propIdade }}</p>
+        <hr>
         <button @click="reiniciarNome">Reiniciar Nome</button>
         <button @click="callbackFn">Alterar Nome (Callback)</button>
     </div>
 </template>
 
 <script>
+import barramento from '@/barramento'
+
 export default {
     // propriedades aceitas que podem vir de um outro componente
     props: {
@@ -19,12 +23,14 @@ export default {
             required: true,
             // default: 'Anônimo'
         },
-        callbackFn: Function
+        callbackFn: Function,
+        idade: Number
     },
     data() {
 
         return  {
-            propNome: this.nomeUsuario
+            propNome: this.nomeUsuario,
+            propIdade: this.idade
         }
     },
     methods: {
@@ -34,27 +40,19 @@ export default {
                 antigo: this.nomeUsuario,
                 novo: novoNome
             });
-            
-
-            
-            /*
-            this.propNome = 'Pedro';
-            this.$emit('nomeMudou', this.propNome);
-            */
-            
-            /*  Não é uma boa prática alterar uma propriedade diretamente do componente filho,
-                já que o componente pai que irá alterá-lo na chamada do evento personalizado
-            this.nomeUsuario = 'Pedro'
-            this.$emit('nomeMudou', this.nomeUsuario);*/
-
-
-
         }
     },
     computed: {
         inverterNome() {
             return this.nomeUsuario.split('').reverse().join('')
         }
+    },
+
+    // event bus => comunicação entre irmãos sem passar pelo componente pai 
+    created() {
+        barramento.$on('idadeMudou', idade => {
+            this.propIdade = idade;
+        });
     }
 }
 </script>
