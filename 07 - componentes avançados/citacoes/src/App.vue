@@ -1,7 +1,17 @@
 <template>
 	<div id="app">
-		<Citacoes />
-		<Sobre />
+		<span>
+			<button @click="componente = 'Citacoes'">Citações</button>
+			<button @click="componente = 'Sobre'">Sobre</button>
+		</span>
+
+		<!-- 
+			Sempre ao alterar de componente, o componente será destruído e criado dnv 
+			A não ser pela utilização da tag <keep-alive>
+		-->
+		<keep-alive>
+			<component :is="componente"/>
+		</keep-alive>
 	</div>
 </template>
 
@@ -10,7 +20,12 @@ import Citacoes from './components/Citacoes'
 import Sobre from './components/Sobre'
 
 export default {
-	components: { Citacoes, Sobre }
+	components: { Citacoes, Sobre },
+	data() {
+		return {
+			componente: 'Sobre'
+		}
+	}
 }
 </script>
 
