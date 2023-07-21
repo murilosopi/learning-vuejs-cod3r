@@ -22,9 +22,8 @@ export default {
 <style>
     .progress-bar {
         width: 75vw;
-        height: 20px;
-        border: 1px solid white;
-        padding: .1rem;
+        min-height: 20px;
+        border: 1px solid rgba(31, 45, 41, 0.434);
         position: relative;
         border-radius: 1rem;
     }
@@ -32,7 +31,7 @@ export default {
     .progress-bar .fill {
         height: 100%;
         border-radius: 1rem;
-        background-color: rgba(31, 45, 41, 0.434);
+        background-color: rgba(15, 18, 17, 0.434);
     }
 
     .progress-bar .text {
