@@ -9,12 +9,20 @@
 </template>
 
 <script>
+import EventBus from '@/EventBus';
 export default {
-    props: {
-        progress: {
-            type: Number,
-            default: 0,
+
+    data() {
+        return {
+            progress: 0
         }
+    },
+
+    created() {
+        EventBus.onChangeProgress((obj) => {
+            const res = Math.round(100*obj.done/obj.total);
+            this.progress = res ? res : 0;
+        });
     }
 }
 </script>

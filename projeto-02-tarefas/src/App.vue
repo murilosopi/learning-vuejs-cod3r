@@ -1,17 +1,20 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
-		<ProgressBar :progress="75"></ProgressBar>
+		<ProgressBar></ProgressBar>
 		<InputTask></InputTask>
+		<PanelTask></PanelTask>
 	</div>
 </template>
 
 <script>
 import ProgressBar from '@/components/ProgressBar.vue';
 import InputTask from '@/components/InputTask.vue';
+import PanelTask from '@/components/PanelTask.vue';
 export default {
 	components: {
 		ProgressBar,
+		PanelTask,
 		InputTask
 	}
 }

@@ -1,5 +1,5 @@
 <template>
-  <article class="task" :class="{done: task.done}" @click="$emit('done', task.id)">
+  <article class="task" :class="{done: task.done}" @click="() => {if(task.done) $emit('done', task.id)}">
     <slot name="text"></slot>
   </article>
 </template>
