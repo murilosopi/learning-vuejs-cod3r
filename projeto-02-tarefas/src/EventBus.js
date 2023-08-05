@@ -4,11 +4,20 @@ export default new Vue({
         onAddTask(callback) {
             this.$on('addTask', callback)
         },
-        onChangeProgress(callback) {
-            this.$on('onChangeProgress', callback)
-        },
         registerTask(task) {
             this.$emit('addTask', task);
+        },
+        toggleDoneState(idx) {
+            this.$emit('onMarkAsDone', idx);
+        },
+        onToggleDoneState(callback) {
+            this.$on('toggleDoneState', callback);
+        },
+        onRemoveTask(callback) {
+            this.$on('removeTask', callback)
+        },
+        removeTask(idx) {
+            this.$emit('removeTask', idx);
         }
     }
 });

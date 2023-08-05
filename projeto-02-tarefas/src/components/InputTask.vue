@@ -1,6 +1,6 @@
 <template>
   <div class="input-task">
-    <input type="text" placeholder="Insira sua tarefa" @keypress="e => { if(e.keyCode == 13) registerTask() }">
+    <input v-model="text" type="text" placeholder="Insira sua tarefa" @keydown.enter="registerTask">
     <button @click="registerTask">
         <i class="fa-solid fa-thumbtack"></i>
     </button>
@@ -10,12 +10,16 @@
 <script>
 import EventBus from '@/EventBus';
 export default {
+
+  data() {
+    return {
+      text: ''
+    }
+  },
   methods: {
     registerTask() {
-      const taskText = this.$el.querySelector('input').value;
-      EventBus.registerTask(taskText);
-
-      this.$el.querySelector('input').value = '';
+      EventBus.registerTask(this.text);
+      this.text = '';
     }
   }
 }

@@ -12,18 +12,9 @@
 import EventBus from '@/EventBus';
 export default {
 
-    data() {
-        return {
-            progress: 0
-        }
+    props: {
+        progress: Number
     },
-
-    created() {
-        EventBus.onChangeProgress((obj) => {
-            const res = Math.round(100*obj.done/obj.total);
-            this.progress = res ? res : 0;
-        });
-    }
 }
 </script>
 
@@ -31,15 +22,16 @@ export default {
     .progress-bar {
         width: 75vw;
         min-height: 20px;
-        border: 1px solid rgba(31, 45, 41, 0.434);
+        border: 2px solid rgba(0, 0, 0, 0.207);
         position: relative;
         border-radius: 1rem;
     }
-
+    
     .progress-bar .fill {
         height: 100%;
         border-radius: 1rem;
-        background-color: rgba(15, 18, 17, 0.434);
+        background-color: rgba(0, 0, 0, 0.207);
+        transition: .3s ease-in;
     }
 
     .progress-bar .text {
