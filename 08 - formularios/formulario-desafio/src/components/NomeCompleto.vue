@@ -15,13 +15,14 @@ export default {
   },
   props: {
     value: {
+      type: Object,
       required: true
     }
   },
   data() {
     return {
-      nome: this.value.split(' ')[0] ||'' ,
-      sobrenome: this.value.split(' ').splice(1).join(' ') || '',
+      nome: this.value.nome || '',
+      sobrenome: this.value.sobrenome || '',
     }
   },
   watch: {
@@ -35,7 +36,10 @@ export default {
   },
   methods: {
     atualizarNomeCompleto() {
-      this.$emit('change', `${this.nome} ${this.sobrenome}`);
+      this.$emit('change', {
+        nome: this.nome,
+        sobrenome: this.sobrenome,
+      });
     },
     alterarFoco(event) {
       event.preventDefault();

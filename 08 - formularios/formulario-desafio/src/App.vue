@@ -34,7 +34,7 @@
           <h2>
             <strong>Nome: </strong>
           </h2>
-          <p>{{ usuario.nomeCompleto }}</p>
+          <p>{{ usuario.nomeCompleto.nome }} {{ usuario.nomeCompleto.sobrenome }}</p>
         </div>
 
         <div>
@@ -74,7 +74,7 @@ export default {
     return {
       enviado: false,
       usuario: {
-        nomeCompleto: '',
+        nomeCompleto: {}
       },
     };
   },
