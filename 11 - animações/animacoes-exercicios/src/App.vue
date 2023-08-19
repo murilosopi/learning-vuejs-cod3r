@@ -1,119 +1,142 @@
 <template>
-	<div id="app" class="container-fluid">
-		<h1>Animações</h1>
-		<hr>
-		<b-button variant="primary" class="mb-4" @click="exibir = !exibir">Mostrar Mensagem</b-button>
+  <div id="app" class="container-fluid">
+    <h1>Animações</h1>
+    <hr />
+    <b-button variant="primary" class="mb-4" @click="exibir = !exibir"
+      >Mostrar Mensagem</b-button
+    >
 
-		<!-- type: vai definir qual é a propriedade que vai mandar no tempo para retirada da DOM -->
-		<!-- appear: inicia a animação no carregamento do componente -->
-		<transition name="slide" type="animation" appear>
-			<b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
+    <!-- type: vai definir qual é a propriedade que vai mandar no tempo para retirada da DOM -->
+    <!-- appear: inicia a animação no carregamento do componente -->
+    <transition name="slide" type="animation" appear>
+      <b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
+    </transition>
+
+    <!-- classes personalizadas -->
+    <transition
+      enter-active-class="animated bounce"
+      leave-to-class="animated shake"
+    >
+      <b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
+    </transition>
+
+    <hr />
+
+    <b-select v-model="tipoAnimacao">
+      <option value="fade">Fade</option>
+      <option value="slide">Slide</option>
+    </b-select>
+
+    <transition :name="tipoAnimacao" mode="out-in">
+      <b-alert variant="info" show v-if="exibir" key="info">{{ msg }}</b-alert>
+      <b-alert variant="warning" show v-else key="aviso">{{ msg }}</b-alert>
+    </transition>
+
+    <hr />
+
+    <!-- Animações em JS: hooks -->
+    <b-button variant="dark" @click="exibir2 = !exibir2">Mostrar</b-button>
+    <transition
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @enter-cancelled="enterCancelled"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @leave-cancelled="leaveCancelled"
+    >
+      <div v-if="exibir2" class="caixa"></div>
+    </transition>
+
+    <hr />
+
+    <div class="mb-4">
+			<b-button variant="info" @click="componenteSelecionado = 'AlertaInfo'" class="mr-1"
+				>Informação</b-button
+			>
+			<b-button
+				variant="warning"
+				@click="componenteSelecionado = 'AlertaAdvertencia'"
+				>Advertência</b-button
+			>
+		</div>
+
+
+		<transition name="slide" mode="out-in">
+			<component :is="componenteSelecionado"></component>
 		</transition>
-
-		<!-- classes personalizadas -->
-		<transition 
-			enter-active-class="animated bounce"
-			leave-to-class="animated shake">
-			<b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
-		</transition>
-
-		<hr>
-
-		<b-select v-model="tipoAnimacao">
-			<option value="fade">Fade</option>
-			<option value="slide">Slide</option>
-		</b-select>
-
-		<transition :name="tipoAnimacao" mode="out-in">
-			<b-alert variant="info" show v-if="exibir" key="info">{{ msg }}</b-alert>
-			<b-alert variant="warning" show v-else key="aviso">{{ msg }}</b-alert>
-		</transition>
-
-		<hr>
-
-		<!-- Animações em JS: hooks -->
-		<b-button variant="dark" @click="exibir2 = !exibir2">Mostrar</b-button>
-		<transition
-			:css="false"
-			@before-enter="beforeEnter"
-			@enter="enter"
-			@after-enter="afterEnter"
-			@enter-cancelled="enterCancelled"
-
-			@before-leave="beforeLeave"
-			@leave="leave"
-			@after-leave="afterLeave"
-			@leave-cancelled="leaveCancelled">
-			
-			<div v-if="exibir2" class="caixa"></div>
-		</transition>
-
-
-
-
-	</div>
+  </div>
 </template>
 
 <script>
+import AlertaAdvertencia from "./AlertaAdvertencia.vue";
+import AlertaInfo from "./AlertaInfo.vue";
 export default {
-	/* eslint-disable */
+  /* eslint-disable */
+
+  components: {
+    AlertaAdvertencia,AlertaInfo
+  },
+
   data() {
     return {
       msg: "Uma mensagem de informação para o usuário!",
-			tipoAnimacao: 'fade',
+      tipoAnimacao: "fade",
       exibir: false,
       exibir2: true,
-			larguraBase: 0
+      larguraBase: 0,
+      componenteSelecionado: "AlertaInfo",
     };
   },
-	methods: {
-		beforeEnter(el) {
-			this.larguraBase = 0
-		},
+  methods: {
+    beforeEnter(el) {
+      this.larguraBase = 0;
+    },
 
-		enter(el, done) {
-			this.animar(el, done, false);
-		},
+    enter(el, done) {
+      this.animar(el, done, false);
+    },
 
-		afterEnter(el) {
-			console.log('afterEnter')
-		},
+    afterEnter(el) {
+      console.log("afterEnter");
+    },
 
-		enterCancelled(el) {
-			console.log('enterCancelled')
-		},
+    enterCancelled(el) {
+      console.log("enterCancelled");
+    },
 
-		beforeLeave(el) {
-			this.larguraBase = 300;
-		},
+    beforeLeave(el) {
+      this.larguraBase = 300;
+    },
 
-		leave(el, done) {
-			this.animar(el, done, true);
-		},
+    leave(el, done) {
+      this.animar(el, done, true);
+    },
 
-		afterLeave(el) {
-			console.log('afterLeave')
-		},
+    afterLeave(el) {
+      console.log("afterLeave");
+    },
 
-		leaveCancelled(el) {
-			console.log('leaveCancelled')
-		},
+    leaveCancelled(el) {
+      console.log("leaveCancelled");
+    },
 
-		animar(el, done, negativo) {
-			let rodada = 1;
-			const temporizador = setInterval(() => {
-				const novaLargura = this.larguraBase + rodada * 20;
-				el.style.width = `${novaLargura}px`;
+    animar(el, done, negativo) {
+      let rodada = 1;
+      const temporizador = setInterval(() => {
+        const novaLargura = this.larguraBase + rodada * 20;
+        el.style.width = `${novaLargura}px`;
 
-				negativo ? rodada-- : rodada++ ;
-				if(rodada > 30) {
-					clearInterval(temporizador);
-					done();
-				}
-			}, 50);
-		}
-
-	}
+        negativo ? rodada-- : rodada++;
+        if (rodada > 30) {
+          clearInterval(temporizador);
+          done();
+        }
+      }, 50);
+    },
+  },
 };
 </script>
 
