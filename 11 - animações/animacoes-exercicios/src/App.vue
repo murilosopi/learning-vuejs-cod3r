@@ -28,17 +28,92 @@
 			<b-alert variant="info" show v-if="exibir" key="info">{{ msg }}</b-alert>
 			<b-alert variant="warning" show v-else key="aviso">{{ msg }}</b-alert>
 		</transition>
+
+		<hr>
+
+		<!-- Animações em JS: hooks -->
+		<b-button variant="dark" @click="exibir2 = !exibir2">Mostrar</b-button>
+		<transition
+			:css="false"
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+			@enter-cancelled="enterCancelled"
+
+			@before-leave="beforeLeave"
+			@leave="leave"
+			@after-leave="afterLeave"
+			@leave-cancelled="leaveCancelled">
+			
+			<div v-if="exibir2" class="caixa"></div>
+		</transition>
+
+
+
+
 	</div>
 </template>
 
 <script>
 export default {
+	/* eslint-disable */
   data() {
     return {
       msg: "Uma mensagem de informação para o usuário!",
+			tipoAnimacao: 'fade',
       exibir: false,
+      exibir2: true,
+			larguraBase: 0
     };
   },
+	methods: {
+		beforeEnter(el) {
+			this.larguraBase = 0
+		},
+
+		enter(el, done) {
+			this.animar(el, done, false);
+		},
+
+		afterEnter(el) {
+			console.log('afterEnter')
+		},
+
+		enterCancelled(el) {
+			console.log('enterCancelled')
+		},
+
+		beforeLeave(el) {
+			this.larguraBase = 300;
+		},
+
+		leave(el, done) {
+			this.animar(el, done, true);
+		},
+
+		afterLeave(el) {
+			console.log('afterLeave')
+		},
+
+		leaveCancelled(el) {
+			console.log('leaveCancelled')
+		},
+
+		animar(el, done, negativo) {
+			let rodada = 1;
+			const temporizador = setInterval(() => {
+				const novaLargura = this.larguraBase + rodada * 20;
+				el.style.width = `${novaLargura}px`;
+
+				negativo ? rodada-- : rodada++ ;
+				if(rodada > 30) {
+					clearInterval(temporizador);
+					done();
+				}
+			}, 50);
+		}
+
+	}
 };
 </script>
 
@@ -53,12 +128,21 @@ export default {
   font-size: 1.5rem;
 }
 
-.fade-enter, .fade-leave-to {
-	opacity: 0;
+.caixa {
+  height: 100px;
+  width: 300px;
+  margin: 30px auto;
+  background-color: lightgreen;
 }
 
-.fade-enter-active, .fade-leave-active {
-	transition: opacity 2s;
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
 }
 
 @keyframes slide-out {
@@ -75,10 +159,9 @@ export default {
     transform: translateY(20px);
   }
   to {
-		transform: translateY(0);
+    transform: translateY(0);
   }
 }
-
 
 .slide-enter,
 .slide-leave-to {
@@ -87,12 +170,11 @@ export default {
 
 .slide-enter-active {
   animation: slide-in 1s ease;
-  transition: opacity .7s;
-
+  transition: opacity 0.7s;
 }
 
 .slide-leave-active {
   animation: slide-out 1s ease;
-  transition: opacity .7s;
+  transition: opacity 0.7s;
 }
 </style>
