@@ -67,6 +67,15 @@
 		<transition name="slide" mode="out-in">
 			<component :is="componenteSelecionado"></component>
 		</transition>
+
+		<hr>
+
+		<b-input @keypress.enter.native="adicionarAluno" class="mb-4"/>
+
+		<transition-group name="slide" tag="b-list-group">
+			<b-list-group-item v-for="(aluno, index) in alunos" :key="aluno" @click="removerAluno(index)"> {{ aluno }}</b-list-group-item>
+		</transition-group>
+
   </div>
 </template>
 
@@ -82,6 +91,7 @@ export default {
 
   data() {
     return {
+			alunos: ['Roberto', 'Maria', 'Rafael', 'Pedro', 'Carlos'],
       msg: "Uma mensagem de informação para o usuário!",
       tipoAnimacao: "fade",
       exibir: false,
@@ -91,6 +101,15 @@ export default {
     };
   },
   methods: {
+
+		adicionarAluno(e) {
+			this.alunos.push(e.target.value);
+		},
+
+		removerAluno(idx) {
+			this.alunos.splice(idx, 1);
+		},
+
     beforeEnter(el) {
       this.larguraBase = 0;
     },
@@ -192,12 +211,23 @@ export default {
 }
 
 .slide-enter-active {
-  animation: slide-in 1s ease;
-  transition: opacity 0.7s;
+  animation: slide-in .5s ease;
+  transition: opacity .5s;
 }
 
 .slide-leave-active {
-  animation: slide-out 1s ease;
-  transition: opacity 0.7s;
+  animation: slide-out .5s ease;
+  transition: opacity .5s;
+}
+
+/* movimento dos demais elementos ao fim de uma animação de um elemento dentro de um transition group */
+.slide-move {
+	transition: transform .5s;
+}
+
+/* serve para gerar a sobreposição dos elementos no momento de retirada do elemento da DOM */
+.slide-leave-active {
+	position: absolute;
+	width: 100%;
 }
 </style>
