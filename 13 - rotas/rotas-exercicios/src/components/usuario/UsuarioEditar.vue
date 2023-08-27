@@ -3,6 +3,10 @@
     <h3>Usuario Editar</h3>
     <p><strong>Código: {{ id }}</strong></p>
     <p>Idioma/Região: <strong>{{ $route.query.idioma }}/{{ $route.query.pais }}</strong></p>
+
+    <footer id="rodape">
+      <h3>Curso Vue</h3>
+    </footer>
   </div>
 </template>
 
@@ -13,5 +17,7 @@ export default {
 </script>
 
 <style>
-
+  footer#rodape h3 {
+    margin-top: 1000px;
+  }
 </style>

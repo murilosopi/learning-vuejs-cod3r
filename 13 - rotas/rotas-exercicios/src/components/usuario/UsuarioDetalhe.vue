@@ -6,7 +6,8 @@
     <p>Parâmetro: <strong>{{ $route.params.id }}</strong></p>
 
     <router-link tag="button" :to="{name: 'editarUsuario', params: {id}, 
-                                    query: {idioma: 'pt', pais: 'br'}}" primario>
+                                    query: {idioma: 'pt', pais: 'br'},
+                                    hash: '#rodape'}" primario>
       Editar
     </router-link>
   </div>
