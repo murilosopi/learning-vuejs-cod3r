@@ -2,12 +2,11 @@
   <div class="usuario-detalhe">
     <h3>Usuário Detalhe</h3>
     <hr>
-    <p>
-      Propriedade: <strong>{{ id }}</strong>
-      <br>
-      Parâmetro: <strong>{{ $route.params.id }}</strong>
-    </p>
-    <router-link tag="button" :to="`/usuario/${id}/editar`" primario>
+    <p>Propriedade: <strong>{{ id }}</strong></p>
+    <p>Parâmetro: <strong>{{ $route.params.id }}</strong></p>
+
+    <router-link tag="button" :to="{name: 'editarUsuario', params: {id}, 
+                                    query: {idioma: 'pt', pais: 'br'}}" primario>
       Editar
     </router-link>
   </div>
