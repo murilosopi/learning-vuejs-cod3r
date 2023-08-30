@@ -12,7 +12,21 @@
 
 <script>
 export default {
-  props:['id']
+  props:['id'],
+  data() {
+    return {
+      confirmou: false
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if(this.confirmou) {
+      next();
+    } else if(confirm('Tem certeza')) {
+      next();
+    } else {
+      next(false);
+    }
+  }
 }
 </script>
 
