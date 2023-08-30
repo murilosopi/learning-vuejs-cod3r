@@ -26,6 +26,12 @@ export default {
   //     this.id = to.params.id
   //   }
   // },
+  beforeRouteEnter(to, from, next) {
+    console.log('dentro do compoennte');
+    next(vm => {
+      console.log(vm.id)
+    });
+  }
 }
 </script>
 
