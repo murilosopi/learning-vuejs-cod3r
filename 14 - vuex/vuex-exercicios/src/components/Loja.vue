@@ -18,8 +18,8 @@ export default {
     data() {
         return {
             sequencia: 1,
-            quantidade: 1,
-            preco: 9.99,
+            quantidade: 0,
+            preco: 0
         }
     },
     methods: {
@@ -36,6 +36,33 @@ export default {
             // this.$store.state.produtos.push(produto);
             // this.adicionarProduto(produto);
             this.$store.dispatch('adicionarProduto', produto);
+
+            this.resetarPadrao();
+        },
+        resetarPadrao() {
+            this.quantidade = this.quantidadePadrao
+            this.preco = this.precoPadrao
+        }
+    },
+    created() {
+        this.resetarPadrao();
+    },
+    computed: {
+        quantidadePadrao() {
+            return this.$store.state.quantidade;
+        },
+
+        precoPadrao() {
+            return this.$store.state.preco;
+        }
+    },
+    watch: {
+        quantidadePadrao(valor) {
+            this.quantidade = valor;
+        },
+
+        precoPadrao(valor) {
+            this.preco = valor;
         }
     }
 }

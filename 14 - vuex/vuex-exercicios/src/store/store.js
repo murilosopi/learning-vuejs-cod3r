@@ -5,7 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    produtos: []
+    produtos: [],
+    quantidade: 0,
+    preco: 0
   },
   getters: {
     // método getter centralizado
@@ -17,6 +19,12 @@ export default new Vuex.Store({
   mutations: {
     adicionarProduto(state, payload) {
       state.produtos.push(payload);
+    },
+    setQuantidade(state, payload) {
+      state.quantidade = payload;
+    },
+    setPreco(state, payload) {
+      state.preco = payload;
     }
   },
 
