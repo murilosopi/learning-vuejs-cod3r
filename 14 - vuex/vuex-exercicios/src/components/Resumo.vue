@@ -23,7 +23,7 @@ export default {
     // computed: mapGetters(['valorTotal'])
 
     // getters via mapGetter com objeto
-    computed: mapGetters({
+    computed: mapGetters('carrinho', {
         total: 'valorTotal'
     })
 }

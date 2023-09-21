@@ -1,39 +1,21 @@
 import Vue from "vue";
 import Vuex from 'vuex';
 
+import carrinho from "./modules/carrinho";
+import parametros from "./modules/parametros";
+
+import * as getters from './getters';
+
 Vue.use(Vuex);
 
+
+// com "modules" o acesso de state será this.$store.state.< nome do modulo >.< propriedade >
+// já as mutations, actions e getters ficam diretamente em this.$store
 export default new Vuex.Store({
   state: {
-    produtos: [],
-    quantidade: 0,
-    preco: 0
+    nome: 'Murilo',
+    sobrenome: 'Sopi'
   },
-  getters: {
-    // método getter centralizado
-    valorTotal(state) {
-      return state.produtos.map(p => p.quantidade * p.preco)
-      .reduce((total, atual) => total + atual, 0);
-    }
-  },
-  mutations: {
-    adicionarProduto(state, payload) {
-      state.produtos.push(payload);
-    },
-    setQuantidade(state, payload) {
-      state.quantidade = payload;
-    },
-    setPreco(state, payload) {
-      state.preco = payload;
-    }
-  },
-
-  // aplicação de regras
-  actions: {
-    adicionarProduto({ commit }, payload) {
-      setTimeout(() => {
-        commit('adicionarProduto', payload);
-      }, 1000) 
-    }
-  }
+  getters,
+  modules: { carrinho, parametros }
 });

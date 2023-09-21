@@ -34,8 +34,8 @@ export default {
             this.sequencia++
 
             // this.$store.state.produtos.push(produto);
-            // this.adicionarProduto(produto);
-            this.$store.dispatch('adicionarProduto', produto);
+            // this.$store.dispatch('adicionarProduto', produto);
+            this.adicionarProduto(produto);
 
             this.resetarPadrao();
         },
@@ -49,11 +49,11 @@ export default {
     },
     computed: {
         quantidadePadrao() {
-            return this.$store.state.quantidade;
+            return this.$store.state.parametros.quantidade;
         },
 
         precoPadrao() {
-            return this.$store.state.preco;
+            return this.$store.state.parametros.preco;
         }
     },
     watch: {
